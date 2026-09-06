@@ -1,0 +1,158 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    @apply bg-slate-50 text-slate-900 antialiased min-h-screen font-sans transition-colors duration-200;
+    background-color: #fcfcfd;
+  }
+
+  html.dark body {
+    background-color: #0b0f19 !important;
+    color: #f1f5f9 !important;
+  }
+}
+
+/* Crisp SaaS panels matching the design */
+.saas-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.04), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+html.dark .saas-card {
+  background: #111827;
+  border-color: #1f2937;
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.4);
+}
+
+.browser-window {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(15, 23, 42, 0.04);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+html.dark .browser-window {
+  background: #111827;
+  border-color: #1f2937;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.saas-input {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  color: #0f172a;
+  transition: all 0.15s ease-in-out;
+}
+
+html.dark .saas-input {
+  background: #1f2937;
+  border-color: #374151;
+  color: #f9fafb;
+}
+
+.saas-input:focus {
+  border-color: #2563eb;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+html.dark .saas-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+}
+
+/* Dark mode theme helpers */
+html.dark .bg-white {
+  background-color: #111827 !important;
+}
+
+html.dark .bg-slate-50 {
+  background-color: #1a2234 !important;
+}
+
+html.dark .bg-slate-100 {
+  background-color: #1e293b !important;
+}
+
+html.dark .text-slate-900 {
+  color: #f8fafc !important;
+}
+
+html.dark .text-slate-800 {
+  color: #f1f5f9 !important;
+}
+
+html.dark .text-slate-700 {
+  color: #cbd5e1 !important;
+}
+
+html.dark .text-slate-600 {
+  color: #94a3b8 !important;
+}
+
+html.dark .text-slate-500 {
+  color: #94a3b8 !important;
+}
+
+html.dark .border-slate-100,
+html.dark .border-slate-200,
+html.dark .border-slate-300 {
+  border-color: #1f2937 !important;
+}
+
+/* Maintain resume document paper preview strictly white for realistic A4 rendering */
+#resume-document-to-export,
+#resume-document-to-export * {
+  background-color: transparent;
+}
+#resume-document-to-export {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+}
+#resume-document-to-export .text-black {
+  color: #000000 !important;
+}
+#resume-document-to-export .text-slate-900 {
+  color: #0f172a !important;
+}
+#resume-document-to-export .text-slate-800 {
+  color: #1e293b !important;
+}
+#resume-document-to-export .text-slate-700 {
+  color: #334155 !important;
+}
+#resume-document-to-export .text-slate-600 {
+  color: #475569 !important;
+}
+#resume-document-to-export .text-slate-500 {
+  color: #64748b !important;
+}
+#resume-document-to-export .border-slate-300 {
+  border-color: #cbd5e1 !important;
+}
+#resume-document-to-export .border-slate-100 {
+  border-color: #f1f5f9 !important;
+}
+
+/* Print Styles: ONLY the resume document is exported, hiding all website UI */
+@media print {
+  body {
+    background: #ffffff !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  header, nav, footer, .no-print, button, .saas-card {
+    display: none !important;
+  }
+  #resume-document-to-export {
+    box-shadow: none !important;
+    border: none !important;
+    margin: 0 !important;
+    padding: 15mm !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
