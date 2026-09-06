@@ -22,13 +22,71 @@ Includes an **AI Resume Maker / 90%+ Builder** that exports print-accurate A4 PD
 
 ---
 
-## 🚀 Tech Stack
+## 📂 Project Architecture & Directory Structure
 
-- **Frontend**: React 19, Vite, Tailwind CSS v4, Lucide Icons, jsPDF, html2canvas, Canvas Confetti
-- **Backend**: FastAPI (Python 3.10+), Uvicorn, Pydantic v2
-- **Database**: MongoDB (Motor async driver) with native TTL indexes
-- **Document Parsing**: `pdfplumber` + `pypdf` + `python-docx` + RegEx NLP analysis
-- **Mailing**: `aiosmtplib` with Gmail SMTP integration
+```text
+ats-resume-optimizer/
+├── .gitignore                           # Excludes credentials (.env), node_modules, and venv
+├── README.md                            # Complete setup guide, architecture, and documentation
+│
+├── backend/                             # FastAPI Python 3.10+ Backend
+│   ├── .env.example                     # Environment variables template for MongoDB and Gmail SMTP
+│   ├── requirements.txt                 # Backend Python package dependencies
+│   ├── test_gmail_smtp.py               # Standalone diagnostic utility for Gmail SMTP connection
+│   │
+│   ├── app/
+│   │   ├── main.py                      # FastAPI application entry point, CORS, and router registration
+│   │   │
+│   │   ├── api/                         # API endpoints
+│   │   │   ├── ats.py                   # ATS evaluation, scoring, role list, and MongoDB scan persistence
+│   │   │   ├── auth.py                  # Passwordless email OTP generation, verification, and JWT issuance
+│   │   │   └── deps.py                  # Authentication dependencies and JWT token validation
+│   │   │
+│   │   ├── core/                        # Core configuration and security
+│   │   │   ├── config.py                # Environment settings management (Pydantic BaseSettings)
+│   │   │   └── security.py              # JWT token generation and passwordless passcode logic
+│   │   │
+│   │   ├── db/                          # Database connection and models
+│   │   │   └── mongodb.py               # Motor MongoDB client with in-memory fallback store
+│   │   │
+│   │   └── services/                    # Business and evaluation logic
+│   │       ├── ats_service.py           # 5-pillar ATS scoring algorithm (90% threshold rule)
+│   │       ├── email_service.py         # Async Gmail SMTP email dispatcher for OTP codes
+│   │       └── parser_service.py        # PDF & DOCX text, contact, and section extraction
+│   │
+│   └── tests/                           # Automated test suite
+│       ├── test_ats_engine.py           # Unit tests for scoring, flaw detection, and recommendations
+│       └── test_api_integration.py      # Integration tests for auth, OTP, and file scan endpoints
+│
+└── frontend/                            # React 19 + Vite + Tailwind CSS Frontend
+    ├── package.json                     # Frontend dependencies and npm scripts
+    ├── vite.config.js                   # Vite bundler configuration
+    ├── index.html                       # HTML root with ATS branding and favicon
+    │
+    ├── public/
+    │   ├── ats-logo.png                 # Stylized ATS branding logo
+    │   ├── favicon.svg                  # Browser tab icon
+    │   └── icons.svg                    # SVG sprite icons
+    │
+    └── src/
+        ├── App.jsx                      # Root application component with view routing and dark mode
+        ├── App.css                      # Global component styles
+        ├── index.css                    # Tailwind CSS setup and dark mode theme definitions
+        ├── main.jsx                     # React DOM initialization
+        │
+        ├── components/                  # UI Components
+        │   ├── Navbar.jsx               # Header with logo, developer credit, AI Tools, and Dark/Light toggle
+        │   ├── HeroPreview.jsx          # SaaS hero preview matching PikaResume layout
+        │   ├── FileUpload.jsx           # Drag-and-drop resume uploader with target role selector
+        │   ├── ScoreGauge.jsx           # Circular score gauge with 90% threshold indicator and breakdown
+        │   ├── FlawCards.jsx            # Actionable diagnostics for flaws, missing skills, and rewrites
+        │   ├── ResumeMaker.jsx          # AI Resume Builder with clickable links, active preview, and PDF export
+        │   ├── HistoryList.jsx          # User's saved resume scan history and past scores
+        │   └── LoginOTP.jsx             # Passwordless Email OTP modal with auto-fill test button
+        │
+        └── services/
+            └── api.js                   # Axios HTTP client with JWT interceptor and API methods
+```
 
 ---
 
